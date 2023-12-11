@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col items-center justify-center mt-96 text-center">
+    <div class="flex flex-col items-center justify-center mt-96 text-center bg-slate-200">
       <h1 class="text-5xl font-bold">Le truc a faire</h1>
       <p>
         Bienvenue à ce formulaire dans lequel vous pouvez juger et donner votre
