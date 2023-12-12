@@ -14,17 +14,17 @@
         data-aos="fade-up"
         data-aos-delay="300"
       >
-        <div class="md:w-1/2 mt-4 md:mt-10 md:ml-5">
+        <div class="md:w-3/5 mt-4 md:mt-10 md:ml-5">
           <!-- Utilisez la balise <video> pour afficher la vidéo -->
           <video controls width="100%" height="auto">
             <source :src="item.videoUrl" type="video/mp4" />
             Votre navigateur ne prend pas en charge la balise vidéo.
           </video>
         </div>
-        <div class="md:w-1/2 mt-4 md:pt-16 md:pl-5">
+        <div class="md:w-2/5 mt-1 md:pt-16 md:pl-6">
           <form
             @submit.prevent="submitForm(index)"
-            class="shadow-xl rounded-lg bg-slate-100 md:mr-5 pb-5 pl-4 pr-5 pt-5"
+            class="shadow-xl rounded-lg bg-slate-100 md:mr-5 pb-5 pl-5 pr-5 pt-5"
           >
             <label for="uiuxQuestion" class="block font-semibold mt-4">
               {{ item.uiuxQuestion }}</label
@@ -38,13 +38,13 @@
               class="rounded-lg border p-2 w-full"
             />
 
-            <label for="comment" class="block font-semibold mt-4"
+            <label for="comment" class="block font-semibold mt-5"
               >Commentaire :</label
             >
             <textarea
               v-model="item.formData.comment"
               id="comment"
-              class="rounded-lg border p-2 w-full"
+              class="rounded-lg border p-20 w-full"
             ></textarea>
 
             <button

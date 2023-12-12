@@ -15,7 +15,7 @@
               >Nom :</label
             >
             <input
-              v-model="formData.name"
+              v-model="formData.FirstName"
               type="text"
               id="name"
               name="name"
@@ -27,7 +27,7 @@
               >Email :</label
             >
             <input
-              v-model="formData.email"
+              v-model="formData.Email"
               type="email"
               id="email"
               name="email"
@@ -41,7 +41,7 @@
             >Message :</label
           >
           <textarea
-            v-model="formData.message"
+            v-model="formData.Answer"
             id="message"
             name="message"
             rows="4"
@@ -64,14 +64,14 @@
 import { ref } from "vue";
 
 const formData = ref({
-  name: "",
-  email: "",
-  message: ""
+  FirstName: "",
+  Email: "",
+  Answer: ""
 });
 
 const submitForm = async () => {
   try {
-    const response = await fetch("http://exemple.com/api/contact", {
+    const response = await fetch("http://localhost:3001/form", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData.value)
@@ -79,7 +79,7 @@ const submitForm = async () => {
 
     if (response.ok) {
       // Réinitialisez le formulaire après l'envoi avec succès
-      formData.value = { name: "", email: "", message: "" };
+      formData.value = { FirstName: "", Email: "", Answer: "" };
     } else {
       console.error(
         `Erreur HTTP : ${response.status} - ${response.statusText}`
