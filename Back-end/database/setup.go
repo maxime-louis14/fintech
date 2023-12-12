@@ -1,9 +1,11 @@
+// database/database.go
 package database
 
 import (
 	"context"
 	"fmt"
 	"log"
+
 	"time"
 
 	"go.mongodb.org/mongo-driver/mongo"
@@ -18,18 +20,18 @@ func ConnectDB() *mongo.Client {
 	}
 
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-	defer cancel() // Appel de la fonction de cancellation à la fin de la portée
+	defer cancel()
 
 	err = client.Connect(ctx)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	//ping la base de données
 	err = client.Ping(ctx, nil)
 	if err != nil {
 		log.Fatal(err)
 	}
+
 	fmt.Println("Connected to MongoDB")
 	return client
 }
@@ -37,8 +39,13 @@ func ConnectDB() *mongo.Client {
 // Client instance
 var DB *mongo.Client = ConnectDB()
 
-// getting database collections
-func GetCollection(client *mongo.Client, recette string) *mongo.Collection {
+// Getting database collections
+func GetSondageCollection(client *mongo.Client) *mongo.Collection {
 	collection := client.Database("qestions-fintech").Collection("Sondage")
+	return collection
+}
+
+func GetQuestionnaireCollection(client *mongo.Client) *mongo.Collection {
+	collection := client.Database("qestions-fintech").Collection("Questionnaire")
 	return collection
 }

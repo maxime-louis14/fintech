@@ -1,7 +1,7 @@
 package routes
 
 import (
-	"fintech/controller"
+	"fintech/controllers"
 	"fintech/middleware"
 	"github.com/gofiber/fiber/v2"
 )
@@ -16,5 +16,6 @@ func QuestionRoute(app *fiber.App) {
 	})
 
 	// Route pour la méthode POST vers /form
-	app.Post("/form", controller.PostForm)
+	app.Post("/form", controllers.PostForm)
+	app.Post("/question", controllers.PostQuestionnaires)
 }

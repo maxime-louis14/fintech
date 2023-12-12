@@ -30,19 +30,11 @@
               {{ item.uiuxQuestion }}</label
             >
 
-            <label for="email" class="block font-semibold mt-4">Email :</label>
-            <input
-              v-model="item.formData.email"
-              type="email"
-              id="email"
-              class="rounded-lg border p-2 w-full"
-            />
-
             <label for="comment" class="block font-semibold mt-5"
               >Commentaire :</label
             >
             <textarea
-              v-model="item.formData.comment"
+              v-model="item.formData.answer"
               id="comment"
               class="rounded-lg border p-20 w-full"
             ></textarea>
@@ -73,8 +65,7 @@ const imageFormList = ref([
     videoUrl: "/public/videos/test.mp4",
     uiuxQuestion: "Question sur l'UI/UX test1 :",
     formData: {
-      email: "",
-      comment: ""
+      Answer: ""
     }
   },
   {
@@ -83,8 +74,7 @@ const imageFormList = ref([
     videoUrl: "/public/videos/test.mp4",
     uiuxQuestion: "Question sur l'UI/UX :",
     formData: {
-      email: "",
-      comment: ""
+      answer: ""
     }
   }
   // ... ajoutez autant d'éléments que nécessaire
@@ -93,12 +83,12 @@ const imageFormList = ref([
 const submitForm = async (index) => {
   try {
     const item = imageFormList.value[index];
-    const response = await fetch("http://exemple.com/api/form-submit", {
+    const response = await fetch("http://localhost:3001/question", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify(item.formData)
+      body: JSON.stringify([{ answer: item.formData.answer }])
     });
 
     if (!response.ok) {
@@ -109,14 +99,19 @@ const submitForm = async (index) => {
 
     // Gérez la réponse du backend ici (optionnel)
     const responseData = await response.json();
-    console.log("Réponse du backend :", responseData);
+
+    // Vérifiez si la réponse contient des erreurs
+    if (responseData.error) {
+      throw new Error(responseData.error);
+    }
 
     // Réinitialisez seulement les champs du formulaire après l'envoi avec succès
-    item.formData.uiuxQuestion = "";
-    item.formData.email = "";
-    item.formData.comment = "";
+    item.formData.answer = "";
+
+    // Affichez un message de succès ou faites d'autres actions nécessaires
+    console.log("Réponse du backend :", responseData.message);
   } catch (error) {
-    console.error("Erreur lors de l'envoi du formulaire :", error);
+    console.error("Erreur lors de l'envoi du formulaire :", error.message);
   }
 };
 </script>
