@@ -1,0 +1,191 @@
+{
+  "questions": [
+    {
+      "id": 1,
+      "text": "Quelle plateforme utilisez-vous actuellement?",
+      "type": "text"
+    },
+    {
+      "id": 2,
+      "text": "Quels critères étaient importants pour vous lors du choix de cette plateforme?",
+      "type": "checkbox",
+      "options": [
+        "Option 1",
+        "Option 2",
+        "Option 3"
+      ]
+    },
+    {
+      "id": 3,
+      "text": "Quel type de trading pratiquez-vous principalement?",
+      "type": "radio",
+      "options": [
+        "Option 1",
+        "Option 2",
+        "Option 3"
+      ]
+    },
+    {
+      "id": 4,
+      "text": "Quels sont vos objectifs principaux en utilisant une plateforme de trading?",
+      "type": "checkbox",
+      "options": [
+        "Option 1",
+        "Option 2",
+        "Option 3"
+      ]
+    },
+    {
+      "id": 5,
+      "text": "Classez par ordre d'importance les sections suivantes pour vous : [Portefeuille]",
+      "type": "rank"
+    },
+    {
+      "id": 6,
+      "text": "Classez par ordre d'importance les sections suivantes pour vous : [Favoris]",
+      "type": "rank"
+    },
+    {
+      "id": 7,
+      "text": "Classez par ordre d'importance les sections suivantes pour vous : [Actualités financières]",
+      "type": "rank"
+    },
+    {
+      "id": 8,
+      "text": "Classez par ordre d'importance les sections suivantes pour vous : [Formation]",
+      "type": "rank"
+    },
+    {
+      "id": 9,
+      "text": "Classez par ordre d'importance les sections suivantes pour vous : [Tendances du marché]",
+      "type": "rank"
+    },
+    {
+      "id": 10,
+      "text": "Classez par ordre d'importance les sections suivantes pour vous : [Marché en temps réel]",
+      "type": "rank"
+    },
+    {
+      "id": 11,
+      "text": "Classez par ordre d'importance les sections suivantes pour vous : [Historique des transactions]",
+      "type": "rank"
+    },
+    {
+      "id": 12,
+      "text": "Classez par ordre d'importance les sections suivantes pour vous : [Fenêtre surveille]",
+      "type": "rank"
+    },
+    {
+      "id": 13,
+      "text": "Classez par ordre d'importance les sections suivantes pour vous : [Une Carte personnalisée]",
+      "type": "rank"
+    },
+    {
+      "id": 14,
+      "text": "Classez par ordre d'importance les sections suivantes pour vous : [Changer le compte]",
+      "type": "rank"
+    },
+    {
+      "id": 15,
+      "text": "Comment préférez-vous visualiser votre portefeuille d'investissements ? [Graphique de performance]",
+      "type": "radio",
+      "options": [
+        "Option 1",
+        "Option 2",
+        "Option 3"
+      ]
+    },
+    {
+      "id": 16,
+      "text": "Comment préférez-vous visualiser votre portefeuille d'investissements ? [Liste détaillée des actifs]",
+      "type": "radio",
+      "options": [
+        "Option 1",
+        "Option 2",
+        "Option 3"
+      ]
+    },
+    {
+      "id": 17,
+      "text": "Comment préférez-vous visualiser votre portefeuille d'investissements ? [Carte de performance par catégorie d'actifs]",
+      "type": "radio",
+      "options": [
+        "Option 1",
+        "Option 2",
+        "Option 3"
+      ]
+    },
+    {
+      "id": 18,
+      "text": "À quelle fréquence consultez-vous des actualités financières ou des investisseurs super-formés?",
+      "type": "radio",
+      "options": [
+        "Quotidiennement",
+        "Hebdomadairement",
+        "Mensuellement",
+        "Rarement",
+        "Jamais"
+      ]
+    },
+    {
+      "id": 19,
+      "text": "Quels sont les points les plus importants pour vous en termes d'expérience utilisateur sur une plateforme de trading ? [Rapidité d'exécution des ordres]",
+      "type": "checkbox",
+      "options": [
+        "Option 1",
+        "Option 2",
+        "Option 3"
+      ]
+    },
+    {
+      "id": 20,
+      "text": "Quels sont les points les plus importants pour vous en termes d'expérience utilisateur sur une plateforme de trading ? [Facilité de navigation]",
+      "type": "checkbox",
+      "options": [
+        "Option 1",
+        "Option 2",
+        "Option 3"
+      ]
+    },
+    {
+      "id": 21,
+      "text": "Quels sont les points les plus importants pour vous en termes d'expérience utilisateur sur une plateforme de trading ? [Interface utilisateur intuitive]",
+      "type": "checkbox",
+      "options": [
+        "Option 1",
+        "Option 2",
+        "Option 3"
+      ]
+    },
+    {
+      "id": 22,
+      "text": "Quels sont les points les plus importants pour vous en termes d'expérience utilisateur sur une plateforme de trading ? [Disponibilité du support client]",
+      "type": "checkbox",
+      "options": [
+        "Option 1",
+        "Option 2",
+        "Option 3"
+      ]
+    },
+    {
+      "id": 23,
+      "text": "Quels sont les points les plus importants pour vous en termes d'expérience utilisateur sur une plateforme de trading ? [Analyse Technique]",
+      "type": "checkbox",
+      "options": [
+        "Option 1",
+        "Option 2",
+        "Option 3"
+      ]
+    },
+    {
+      "id": 24,
+      "text": "Pouvez-vous décrire le processus que vous suivez habituellement pour trouver une nouvelle opportunité de trading ?",
+      "type": "textarea"
+    },
+    {
+      "id": 25,
+      "text": "Quels sont les principaux défis ou obstacles que vous avez rencontrés lors de vos sessions de trading en ligne?",
+      "type": "textarea"
+    }
+  ]
+}

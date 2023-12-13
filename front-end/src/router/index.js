@@ -8,15 +8,15 @@ const router = createRouter({
       name: 'homeview',
       component: () => import('../views/HomeView.vue')
     },
+    // {
+    //   path: '/adminview',
+    //   name: 'adminview',
+    //   component: () => import('../views/AdminView.vue')
+    // },
     {
-      path: '/adminview',
-      name: 'adminview',
+      path: '/test',
+      name: 'test',
       component: () => import('../views/AdminView.vue')
-    },
-    {
-      path: '/square-grid',
-      name: 'square-grid',
-      component: () => import('../components/SquareGrid.vue')
     },
   ]
 })

@@ -12,7 +12,8 @@
     "aos": "^2.3.4",
     "sweetalert2": "^11.10.1",
     "vue": "^3.3.10",
-    "vue-router": "^4.2.5"
+    "vue-router": "^4.2.5",
+    "vuedraggable": "^2.24.3"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.5.1",
