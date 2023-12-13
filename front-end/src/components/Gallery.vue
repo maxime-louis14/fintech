@@ -1,57 +1,70 @@
 <template>
   <div class="bg-slate-200">
+    <div class="text-center mt-5 md:mt-16">
+      <label for="email" class="block text-gray-700 font-semibold mb-2">
+        Email :
+      </label>
+      <input
+        v-model="commonEmail"
+        type="email"
+        id="email"
+        name="email"
+        class="p-2 border rounded mx-auto"
+      />
+    </div>
+
     <div
       v-for="(item, index) in imageFormList"
       :key="index"
       class="pt-12 md:pt-32"
     >
-      <div>
-        <div class="text-center mt-8 md:mt-20">
-          <h1 class="font-semibold text-2xl md:text-5xl">
-            {{ item.formData.title }}
-          </h1>
-          <p class="font-semibold mt-2 md:mt-5">{{ item.description }}</p>
-        </div>
-        <div
-          v-if="item.visible"
-          class="flex flex-col md:flex-row"
-          data-aos="fade-right"
-          data-aos-delay="300"
-        >
-          <div class="md:w-3/5 mt-4 md:mt-10 md:ml-5">
-            <!-- Utilisation des classes Tailwind pour définir la taille de la vidéo -->
-            <div class="relative w-full h-0" style="padding-bottom: 56.25%">
-              <video
-                controls
-                class="absolute inset-0 w-full h-full"
-                :src="item.videoUrl"
-                type="video/mp4"
-              >
-                Votre navigateur ne prend pas en charge la balise vidéo.
-              </video>
-            </div>
-          </div>
-          <div class="md:w-2/5 mt-1 md:pt-16 md:pl-6">
-            <form
-              v-if="item.visible"
-              id="form"
-              @submit.prevent="submitAllForms(index)"
-              class="shadow-xl rounded-lg bg-slate-100 md:mr-5 pb-5 pl-5 pr-5 pt-5"
-              :class="{ 'opacity-50': !item.canSubmit }"
+      <div class="text-center mt-8 md:mt-20">
+        <h1 class="font-semibold text-2xl md:text-5xl">
+          {{ item.formData.title }}
+        </h1>
+        <p class="font-semibold mt-2 md:mt-5">{{ item.description }}</p>
+      </div>
+
+      <div
+        v-if="item.visible"
+        class="flex flex-col md:flex-row"
+        data-aos="fade-right"
+        data-aos-delay="300"
+      >
+        <div class="md:w-3/5 mt-4 md:mt-10 md:ml-5">
+          <!-- Utilisation des classes Tailwind pour définir la taille de la vidéo -->
+          <div class="relative w-full h-0" style="padding-bottom: 56.25%">
+            <video
+              controls
+              class="absolute inset-0 w-full h-full"
+              :src="item.videoUrl"
+              type="video/mp4"
             >
-              <label for="uiuxQuestion" class="block font-semibold mt-4">{{
-                item.formData.Question
-              }}</label>
-              <label for="comment" class="block font-semibold mt-5"
-                >Commentaire :</label
-              >
-              <textarea
-                v-model="item.formData.answer"
-                id="comment"
-                class="rounded-lg border p-20 w-full"
-              ></textarea>
-            </form>
+              Votre navigateur ne prend pas en charge la balise vidéo.
+            </video>
           </div>
+        </div>
+
+        <div class="md:w-2/5 mt-1 md:pt-16 md:pl-6">
+          <form
+            v-if="item.visible"
+            id="form"
+            @submit.prevent="submitAllForms(index)"
+            class="shadow-xl rounded-lg bg-slate-100 md:mr-5 pb-5 pl-5 pr-5 pt-5"
+            :class="{ 'opacity-50': !item.canSubmit }"
+          >
+            <label for="uiuxQuestion" class="block font-semibold mt-4">{{
+              item.formData.Question
+            }}</label>
+            <label for="comment" class="block font-semibold mt-5"
+              >Commentaire :</label
+            >
+            <textarea
+              v-model="item.formData.answer"
+              id="comment"
+              class="rounded-lg border p-20 w-full"
+            ></textarea>
+          </form>
         </div>
       </div>
     </div>
@@ -81,7 +94,7 @@ const imageFormList = ref([
     videoUrl: "/public/videos/test.mp4",
     formData: {
       title: "Formulaire 1",
-      Question: "Question sur l'UI/UX test1 :",
+      question: "Question sur l'UI/UX test1 :",
       Answer: ""
     },
     canSubmit: true,
@@ -92,7 +105,7 @@ const imageFormList = ref([
     videoUrl: "/public/videos/Enregistrement-LIBERTEX.mov",
     formData: {
       title: "Formulaire 2",
-      Question: "Question sur l'UI/UX :",
+      question: "Question sur l'UI/UX :",
       answer: ""
     },
     canSubmit: true,
@@ -101,12 +114,14 @@ const imageFormList = ref([
   // ... (autres éléments avec visible: true)
 ]);
 
+const commonEmail = ref(""); // Champ d'e-mail unique
+
 const submitAllForms = async (index) => {
   try {
     // Vérifier si le formulaire a déjà été soumis en consultant le localStorage
     const isFormSubmitted = localStorage.getItem("formSubmitted");
 
-    if (isFormSubmitted) {
+    if (isFormSubmitted == commonEmail.value) {
       // Afficher une alerte indiquant que le formulaire a déjà été soumis
       Swal.fire({
         icon: "error",
@@ -117,8 +132,10 @@ const submitAllForms = async (index) => {
     }
 
     const responses = imageFormList.value.map((item) => ({
+      title: item.formData.title,
       answer: item.formData.answer,
-      Question: item.formData.Question
+      question: item.formData.question,
+      email: commonEmail.value // Utilisez la valeur commune de l'e-mail
     }));
 
     const response = await fetch("http://localhost:3001/question", {
@@ -128,6 +145,7 @@ const submitAllForms = async (index) => {
       },
       body: JSON.stringify(responses)
     });
+    console.log("Données envoyées :", JSON.stringify(responses));
 
     if (!response.ok) {
       throw new Error(
@@ -143,12 +161,12 @@ const submitAllForms = async (index) => {
 
     // Désactiver tous les formulaires après l'envoi
     imageFormList.value.forEach((item, i) => {
-      item.canSubmit = false;
+      item.canSubmit = commonEmail;
       item.visible = i === index ? false : item.visible; // Masquer le formulaire actuel
     });
 
     // Stocker l'état de l'envoi du formulaire dans le localStorage
-    localStorage.setItem("formSubmitted", "true");
+    localStorage.setItem("formSubmitted", commonEmail.value);
 
     console.log("Réponse du backend :", responseData.message);
 
