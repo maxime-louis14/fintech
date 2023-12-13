@@ -16,6 +16,6 @@ func QuestionRoute(app *fiber.App) {
 	})
 
 	// Route pour la méthode POST vers /form
-	app.Post("/form", controllers.PostForm)
-	app.Post("/question", controllers.PostQuestionnaires)
+	app.Post("/feedback", controllers.PostFeedback)
+	app.Post("/question", controllers.PostFormulaire)
 }

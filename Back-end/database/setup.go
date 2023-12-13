@@ -40,13 +40,13 @@ func ConnectDB() *mongo.Client {
 var DB *mongo.Client = ConnectDB()
 
 // Getting database collections
-func GetSondageCollection(client *mongo.Client) *mongo.Collection {
-	collection := client.Database("qestions-fintech").Collection("Sondage")
+func GetFeedbackCollection(client *mongo.Client) *mongo.Collection {
+	collection := client.Database("qestions-fintech").Collection("feedback")
 	return collection
 }
 
-func GetQuestionnaireCollection(client *mongo.Client) *mongo.Collection {
-	collection := client.Database("qestions-fintech").Collection("Questionnaire")
+func GetFormulaireCollection(client *mongo.Client) *mongo.Collection {
+	collection := client.Database("qestions-fintech").Collection("formulaire")
 	return collection
 }
 

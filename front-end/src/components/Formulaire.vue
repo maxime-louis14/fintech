@@ -15,7 +15,7 @@
               >Nom :</label
             >
             <input
-              v-model="formData.FirstName"
+              v-model="formData.nom"
               type="text"
               id="name"
               name="name"
@@ -27,7 +27,7 @@
               >Email :</label
             >
             <input
-              v-model="formData.Email"
+              v-model="formData.email"
               type="email"
               id="email"
               name="email"
@@ -41,7 +41,7 @@
             >Message :</label
           >
           <textarea
-            v-model="formData.Answer"
+            v-model="formData.reponse"
             id="message"
             name="message"
             rows="4"
@@ -62,16 +62,30 @@
 
 <script setup>
 import { ref } from "vue";
+import Swal from "sweetalert2";
 
 const formData = ref({
-  FirstName: "",
-  Email: "",
-  Answer: ""
+  nom: "",
+  email: "",
+  reponse: ""
 });
 
 const submitForm = async () => {
+  // Vérifier si l'utilisateur a déjà envoyé un feedback
+  const hasSentFeedback = localStorage.getItem("feedbackSent");
+
+  if (hasSentFeedback) {
+    // Afficher une alerte SweetAlert2 indiquant que le feedback a déjà été envoyé
+    Swal.fire({
+      icon: "warning",
+      title: "Attention",
+      text: "Vous avez déjà envoyé un feedback. Un seul feedback est autorisé."
+    });
+    return; // Arrêter le processus si le feedback a déjà été envoyé
+  }
+
   try {
-    const response = await fetch("http://localhost:3001/form", {
+    const response = await fetch("http://localhost:3001/feedback", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData.value)
@@ -79,14 +93,55 @@ const submitForm = async () => {
 
     if (response.ok) {
       // Réinitialisez le formulaire après l'envoi avec succès
-      formData.value = { FirstName: "", Email: "", Answer: "" };
+      formData.value = { nom: "", email: "", reponse: "" };
+
+      // Indiquer que le feedback a été envoyé dans le stockage local
+      localStorage.setItem("feedbackSent", "true");
+
+      // Afficher une alerte SweetAlert2 pour le succès
+      Swal.fire({
+        icon: "success",
+        title: "Succès",
+        text: "Feedback envoyé avec succès!"
+      });
     } else {
       console.error(
         `Erreur HTTP : ${response.status} - ${response.statusText}`
       );
+
+      // Afficher une alerte SweetAlert2 pour l'échec
+      Swal.fire({
+        icon: "error",
+        title: "Erreur",
+        text: "Erreur lors de l'envoi du feedback. Veuillez réessayer."
+      });
     }
   } catch (error) {
-    console.error("Erreur lors de l'envoi du formulaire :", error);
+    console.error("Erreur lors de l'envoi du feedback :", error);
+
+    let errorMessage = "Une erreur s'est produite. Veuillez réessayer.";
+
+    // Si la réponse est une erreur 400, essayez de récupérer le message d'erreur détaillé
+    if (error.response && error.response.status === 400) {
+      try {
+        const errorData = await error.response.json();
+        if (errorData && errorData.message) {
+          errorMessage = errorData.message;
+        }
+      } catch (jsonError) {
+        console.error(
+          "Erreur lors de la conversion du JSON de l'erreur :",
+          jsonError
+        );
+      }
+    }
+
+    // Afficher une alerte SweetAlert2 pour l'échec avec le message détaillé
+    Swal.fire({
+      icon: "error",
+      title: "Erreur",
+      text: errorMessage
+    });
   }
 };
 </script>

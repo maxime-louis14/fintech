@@ -10,12 +10,12 @@ import (
 	"time"
 )
 
-var controllerQuestion *mongo.Collection = database.GetSondageCollection(database.DB)
-var validateForm = validator.New()
+var controllerFeedback *mongo.Collection = database.GetFeedbackCollection(database.DB)
+var validateFeedback = validator.New()
 
-func PostForm(c *fiber.Ctx) error {
+func PostFeedback(c *fiber.Ctx) error {
 	// Parse le corps de la requête dans une structure de modèle
-	var response models.Response
+	var response models.Feedback
 	if err := c.BodyParser(&response); err != nil {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
 			"error": "Erreur de parsing du corps de la requête",
@@ -23,7 +23,7 @@ func PostForm(c *fiber.Ctx) error {
 	}
 
 	// Valide la structure du modèle
-	if err := validateForm.Struct(response); err != nil {
+	if err := validateFeedback.Struct(response); err != nil {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
 			"error": err.Error(),
 		})
@@ -33,7 +33,7 @@ func PostForm(c *fiber.Ctx) error {
 	response.CreatedAt = time.Now()
 
 	// Insère la réponse dans la base de données
-	result, err := controllerQuestion.InsertOne(context.Background(), response)
+	result, err := controllerFeedback.InsertOne(context.Background(), response)
 	if err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 			"error": "Erreur lors de l'insertion dans la base de données",

@@ -13,6 +13,11 @@ const router = createRouter({
       name: 'adminview',
       component: () => import('../views/AdminView.vue')
     },
+    {
+      path: '/square-grid',
+      name: 'square-grid',
+      component: () => import('../components/SquareGrid.vue')
+    },
   ]
 })
 

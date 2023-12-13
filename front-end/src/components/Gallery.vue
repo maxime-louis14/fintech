@@ -13,16 +13,12 @@
       />
     </div>
 
-    <div
-      v-for="(item, index) in imageFormList"
-      :key="index"
-      class="pt-12 md:pt-32"
-    >
-      <div class="text-center mt-8 md:mt-20">
+    <div v-for="(item, index) in imageFormList" :key="index" class="md:pt-5">
+      <div class="text-center md:mt-20">
         <h1 class="font-semibold text-2xl md:text-5xl">
           {{ item.formData.title }}
         </h1>
-        <p class="font-semibold mt-2 md:mt-5">{{ item.description }}</p>
+        <p class="font-semibold md:mt-5">{{ item.description }}</p>
       </div>
 
       <div
@@ -54,16 +50,20 @@
             :class="{ 'opacity-50': !item.canSubmit }"
           >
             <label for="uiuxQuestion" class="block font-semibold mt-4">{{
-              item.formData.Question
+              item.formData.question
             }}</label>
             <label for="comment" class="block font-semibold mt-5"
               >Commentaire :</label
             >
             <textarea
-              v-model="item.formData.answer"
+              v-model="item.formData.reponse"
               id="comment"
               class="rounded-lg border p-20 w-full"
             ></textarea>
+            <label for="message" class="block text-gray-700 font-semibold mb-2">
+              Donnez-nous votre avis :
+            </label> 
+
           </form>
         </div>
       </div>
@@ -94,8 +94,8 @@ const imageFormList = ref([
     videoUrl: "/public/videos/test.mp4",
     formData: {
       title: "Formulaire 1",
-      question: "Question sur l'UI/UX test1 :",
-      Answer: ""
+      question: "La question :",
+      reponse: ""
     },
     canSubmit: true,
     visible: true
@@ -105,8 +105,8 @@ const imageFormList = ref([
     videoUrl: "/public/videos/Enregistrement-LIBERTEX.mov",
     formData: {
       title: "Formulaire 2",
-      question: "Question sur l'UI/UX :",
-      answer: ""
+      question: "La question dfdfdf :",
+      reponse: ""
     },
     canSubmit: true,
     visible: true
@@ -133,7 +133,7 @@ const submitAllForms = async (index) => {
 
     const responses = imageFormList.value.map((item) => ({
       title: item.formData.title,
-      answer: item.formData.answer,
+      reponse: item.formData.reponse,
       question: item.formData.question,
       email: commonEmail.value // Utilisez la valeur commune de l'e-mail
     }));
