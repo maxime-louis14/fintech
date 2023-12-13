@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "aos": "^2.3.4",
+    "sweetalert2": "^11.10.1",
     "vue": "^3.3.10",
     "vue-router": "^4.2.5"
   },

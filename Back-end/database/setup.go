@@ -49,3 +49,8 @@ func GetQuestionnaireCollection(client *mongo.Client) *mongo.Collection {
 	collection := client.Database("qestions-fintech").Collection("Questionnaire")
 	return collection
 }
+
+func GetAdminFormCollection(client *mongo.Client) *mongo.Collection {
+	collection := client.Database("qestions-fintech").Collection("adminform")
+	return collection
+}
