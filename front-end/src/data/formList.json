@@ -1,0 +1,23 @@
+[
+    {
+      "videoUrl": "/public/videos/test.mp4",
+      "formData": {
+        "title": "Formulaire 1",
+        "question": "La question 1:",
+        "reponse": ""
+      },
+      "canSubmit": true,
+      "visible": true
+    },
+    {
+      "videoUrl": "/public/videos/Enregistrement-LIBERTEX.mov",
+      "formData": {
+        "title": "Formulaire 2",
+        "question": "La question 2:",
+        "reponse": ""
+      },
+      "canSubmit": true,
+      "visible": true
+    }
+  ]
+  

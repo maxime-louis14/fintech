@@ -1,24 +1,15 @@
 <template>
   <div class="bg-slate-200">
     <div class="text-center mt-5 md:mt-16">
-      <label for="email" class="block text-gray-700 font-semibold mb-2">
-        Email :
-      </label>
-      <input
-        v-model="commonEmail"
-        type="email"
-        id="email"
-        name="email"
-        class="p-2 border rounded mx-auto"
-      />
+      <!-- ... (autres parties du code) ... -->
     </div>
 
-    <div v-for="(item, index) in imageFormList" :key="index" class="md:pt-5">
+    <div v-for="(item, index) in formList" :key="index" class="md:pt-5">
       <div class="text-center md:mt-20">
         <h1 class="font-semibold text-2xl md:text-5xl">
           {{ item.formData.title }}
         </h1>
-        <p class="font-semibold md:mt-5">{{ item.description }}</p>
+        <h3 class="text-2xl font-semibold md:mt-5">{{ item.formData.question }}</h3>
       </div>
 
       <div
@@ -27,7 +18,7 @@
         data-aos="fade-right"
         data-aos-delay="300"
       >
-        <div class="md:w-3/5 mt-4 md:mt-10 md:ml-5">
+        <div class="md:w-full lg:w-3/5 mt-4 md:mt-10 md:ml-5">
           <!-- Utilisation des classes Tailwind pour définir la taille de la vidéo -->
           <div class="relative w-full h-0" style="padding-bottom: 56.25%">
             <video
@@ -41,7 +32,7 @@
           </div>
         </div>
 
-        <div class="md:w-2/5 mt-1 md:pt-16 md:pl-6">
+        <div class="md:w-full lg:w-2/5 mt-1 md:pt-16 md:pl-6">
           <form
             v-if="item.visible"
             id="form"
@@ -49,21 +40,17 @@
             class="shadow-xl rounded-lg bg-slate-100 md:mr-5 pb-5 pl-5 pr-5 pt-5"
             :class="{ 'opacity-50': !item.canSubmit }"
           >
-            <label for="uiuxQuestion" class="block font-semibold mt-4">{{
-              item.formData.question
-            }}</label>
-            <label for="comment" class="block font-semibold mt-5"
-              >Commentaire :</label
+            <label
+              for="message"
+              class="block text-gray-700 mt-5 font-semibold mb-2 text-lg md:text-xl lg:text-2xl"
             >
+              Donnez-nous votre avis :
+            </label>
             <textarea
               v-model="item.formData.reponse"
               id="comment"
-              class="rounded-lg border p-20 w-full"
+              class="rounded-lg border p-20 w-full text-lg md:text-xl lg:text-2xl"
             ></textarea>
-            <label for="message" class="block text-gray-700 font-semibold mb-2">
-              Donnez-nous votre avis :
-            </label> 
-
           </form>
         </div>
       </div>
@@ -73,7 +60,7 @@
     <div class="flex justify-center mt-8">
       <button
         @click="submitAllForms"
-        class="mt-4 bg-blue-500 text-white rounded-lg px-4 py-2"
+        class="mt-4 bg-blue-500 text-white rounded-lg px-4 py-2 text-lg md:text-xl lg:text-2xl"
       >
         Envoyer tous les formulaires
       </button>
@@ -81,38 +68,42 @@
   </div>
 </template>
 
+<!-- Le reste du code reste inchangé -->
+
 <script setup>
 import AOS from "aos";
 import "aos/dist/aos.css";
 import Swal from "sweetalert2";
 import { ref } from "vue";
+import formList from "@/data/formList.json";
+
 AOS.init();
 
-const imageFormList = ref([
-  {
-    description: "Description du formulaire 1.",
-    videoUrl: "/public/videos/test.mp4",
-    formData: {
-      title: "Formulaire 1",
-      question: "La question :",
-      reponse: ""
-    },
-    canSubmit: true,
-    visible: true
-  },
-  {
-    description: "Description du formulaire 2.",
-    videoUrl: "/public/videos/Enregistrement-LIBERTEX.mov",
-    formData: {
-      title: "Formulaire 2",
-      question: "La question dfdfdf :",
-      reponse: ""
-    },
-    canSubmit: true,
-    visible: true
-  }
-  // ... (autres éléments avec visible: true)
-]);
+// const imageFormList = ref([
+//   {
+//     description: "Description du formulaire 1.",
+//     videoUrl: "/public/videos/test.mp4",
+//     formData: {
+//       title: "Formulaire 1",
+//       question: "La question :",
+//       reponse: ""
+//     },
+//     canSubmit: true,
+//     visible: true
+//   },
+//   {
+//     description: "Description du formulaire 2.",
+//     videoUrl: "/public/videos/Enregistrement-LIBERTEX.mov",
+//     formData: {
+//       title: "Formulaire 2",
+//       question: "La question dfdfdf :",
+//       reponse: ""
+//     },
+//     canSubmit: true,
+//     visible: true
+//   }
+//   // ... (autres éléments avec visible: true)
+// ]);
 
 const commonEmail = ref(""); // Champ d'e-mail unique
 
