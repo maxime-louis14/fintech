@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-row items-center justify-center mt-60 text-center">
     <div class="flex flex-col items-center justify-center w-2/5 mr-8">
-      <h1 class="text-5xl font-bold">IDKTRading</h1>
+      <h1 class="text-5xl font-bold">IDKTrading</h1>
       <p class="mt-5">
         Bienvenue à ce formulaire dans lequel vous pouvez juger et donner votre
         avis sur des éléments UI/UX.

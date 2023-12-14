@@ -26,8 +26,8 @@
       <div
         v-if="item.visible"
         class="flex flex-col md:flex-row"
-        data-aos="fade-right"
-        data-aos-delay="300"
+        data-aos="fade-down-left"
+        data-aos-delay="450"
       >
         <div class="md:w-full lg:w-3/5 mt-5 md:mt-5 md:ml-5">
           <!-- Utilisation des classes Tailwind pour définir la taille de la vidéo -->
