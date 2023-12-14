@@ -13,12 +13,6 @@
       >
         Télécharger CSV
       </button>
-      <button
-        @click="downloadSQLite"
-        class="bg-blue-500 text-white py-2 px-4 rounded-md"
-      >
-        Télécharger SQLite
-      </button>
     </div>
   </div>
 </template>
@@ -26,66 +20,105 @@
 <script setup>
 import { ref } from "vue";
 
-const downloadFile = async (fileName, mimeType, convertFunction) => {
+// Définir une référence pour stocker les données
+const apiData = ref(null);
+
+const fetchData = async (format) => {
   try {
-    const response = await fetch("http://localhost:3001/api/data");
+    const response = await fetch(
+      "http://localhost:3001/api/data?format=json"
+    );
     const data = await response.json();
-    const fileData = convertFunction(data);
+    apiData.value = data;
+  } catch (error) {
+    console.error(
+      "Erreur lors de la récupération des données de l'API :",
+      error
+    );
+  }
+};
+
+const downloadFile = async (fileName, mimeType, convertFunction, format) => {
+  try {
+    // Vérifier si les données ont été récupérées de l'API
+    if (!apiData.value) {
+      // Si les données ne sont pas disponibles, récupérer les données de l'API
+      await fetchData(format);
+    }
+
+    // Appeler la fonction de conversion appropriée en fonction du format
+    const fileData = convertFunction(apiData.value, format);
+
     const blob = new Blob([fileData], { type: mimeType });
-    const url = URL.createObjectURL(blob);
+    const fileUrl = URL.createObjectURL(blob);
+
+    // Créer un élément <a> pour le téléchargement
     const a = document.createElement("a");
-    a.href = url;
+    a.href = fileUrl;
     a.download = fileName;
+
+    // Ajouter l'élément <a> au DOM, déclencher le clic et le retirer
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
-    URL.revokeObjectURL(url);
+
+    // Révoquer l'URL pour libérer la mémoire
+    URL.revokeObjectURL(fileUrl);
   } catch (error) {
     console.error(`Erreur lors du téléchargement de ${fileName} :`, error);
   }
 };
 
 const convertToCSV = (data) => {
-  const header = Object.keys(data[0]).join(",");
-  const rows = data.map((row) => Object.values(row).join(","));
-  return `${header}\n${rows.join("\n")}`;
+  if (!data || data.length === 0) {
+    console.error("Les données CSV sont undefined ou null.");
+    return "";
+  }
+
+  // Extraction des clés pour les en-têtes CSV
+  const headers = Object.keys(data[0]);
+
+  // Convertir les données en une chaîne CSV
+  const csvContent = data.map((row) =>
+    headers.map((header) => row[header]).join(",")
+  );
+
+  // Ajouter les en-têtes CSV
+  csvContent.unshift(headers.join(","));
+
+  // Retourner la chaîne CSV complète
+  return csvContent.join("\n");
 };
 
 const convertToJSON = (data) => JSON.stringify(data);
 
-const convertToSQLite = (data) => {
-  const db = new SQL.Database();
-  const tableName = "questionnaire";
-
-  // Create a table in the SQLite database
-  db.run(
-    `CREATE TABLE ${tableName} (title TEXT, email TEXT, reponse TEXT, question TEXT, createdAt TEXT)`
-  );
-
-  // Insert data into the SQLite database
-  data.forEach((entry) => {
-    db.run(`INSERT INTO ${tableName} VALUES (?, ?, ?, ?, ?)`, [
-      entry.title,
-      entry.email,
-      entry.reponse,
-      entry.question,
-      entry.createdAt
-    ]);
-  });
-
-  // Export the SQLite database to a Uint8Array
-  return db.export();
+const downloadJSON = async () => {
+  const format = "json";
+  await downloadFile("data.json", "application/json", convertToJSON, format);
 };
 
-const downloadJSON = () => {
-  downloadFile("data.json", "application/json", convertToJSON);
+const downloadCSV = async () => {
+  try {
+    const format = "csv";
+    const response = await fetch("http://localhost:3001/api/data?format=csv");
+    const blob = await response.blob();
+
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "data.csv";
+
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+
+    URL.revokeObjectURL(url);
+  } catch (error) {
+    console.error("Erreur lors du téléchargement du fichier CSV :", error);
+  }
 };
 
-const downloadCSV = () => {
-  downloadFile("data.csv", "text/csv", convertToCSV);
-};
-
-const downloadSQLite = () => {
-  downloadFile("data.sqlite", "application/x-sqlite3", convertToSQLite);
-};
+// Appeler fetchData lors de la création du composant
+fetchData();
 </script>

@@ -1,14 +1,17 @@
 <template>
   <div class="bg-slate-200 pt-52 h-screen text-center" id="Contact">
     <div
-      class="p-8 rounded-lg shadow-lg bg-slate-100 mx-auto max-w-2xl mb-10"
+      class="p-8 rounded-lg shadow-lg bg-slate-100 mx-auto max-w-4xl mb-10"
       data-aos="fade-up"
       data-aos-delay="300"
     >
-      <h1 class="text-4xl font-bold mb-6 inline-block rounded-lg">
-        Contactez-nous
+      <h1 class="text-2xl font-normal mb-6 inline-block rounded-lg">
+        Selon vous, quelle est votre UI préférée entre toutes celles présentées
+        avant. De plus, donnez-nous des fonctionnalités que vous aimeriez voir
+        apparaitre sur l'interface que vous utilisez actuellement
       </h1>
       <form @submit.prevent="submitForm" class="text-left">
+        <!-- Nom et Email -->
         <div class="mb-4 flex">
           <div class="w-1/2 pr-2">
             <label for="name" class="block text-gray-700 font-semibold mb-2"
@@ -36,6 +39,7 @@
           </div>
         </div>
 
+        <!-- Message -->
         <div class="mb-4">
           <label for="message" class="block text-gray-700 font-semibold mb-2"
             >Message :</label
@@ -49,6 +53,7 @@
           ></textarea>
         </div>
 
+        <!-- Bouton Envoyer -->
         <button
           type="submit"
           class="bg-blue-500 text-white rounded-lg px-4 py-2 mx-auto block"

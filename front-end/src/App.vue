@@ -4,8 +4,8 @@ import Navbar from "./components/Navbar/Navbar.vue";
 
 <template>
   <div class="bg-slate-200">
-    <header>
+    
       <Navbar />
-    </header>
+
   </div>
 </template>

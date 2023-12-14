@@ -26,12 +26,12 @@
       <div
         v-if="item.visible"
         class="flex flex-col md:flex-row"
-        data-aos="fade-down-left"
+        data-aos="fade-down"
         data-aos-delay="450"
       >
         <div class="md:w-full lg:w-3/5 mt-5 md:mt-5 md:ml-5">
           <!-- Utilisation des classes Tailwind pour définir la taille de la vidéo -->
-          <div class="relative w-full h-0" style="padding-bottom: 56.25%">
+          <div class="relative w-full h-0" style="padding-bottom: 50%">
             <video
               controls
               class="absolute inset-0 w-full h-full"
@@ -40,6 +40,8 @@
             >
               Votre navigateur ne prend pas en charge la balise vidéo.
             </video>
+            <img
+            />
           </div>
         </div>
 

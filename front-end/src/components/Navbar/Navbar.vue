@@ -18,13 +18,6 @@
             <a href="#Contact" class="hover:bg-gray-600 px-4 py-2 rounded">
               Contact
             </a>
-            <RouterLink
-              to="/adminview"
-              class="hover:bg-gray-600 px-4 py-2 rounded"
-              active-class="bg-gray-600"
-            >
-              
-            </RouterLink>
           </div>
         </div>
       </nav>

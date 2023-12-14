@@ -1,9 +1,9 @@
 [
   {
-    "videoUrl": "/public/videos/test.mp4",
+    "videoUrl": "/public/videos/rec-etoro.mp4",
     "formData": {
       "title": "Formulaire 1",
-      "question": "La question 1 : pouvoir modifier le graphique est-il important pour vous ?",
+      "question": "Selon-vous pouvoir modifier le graphique est-il important pour vous ?",
       "reponse": ""
     },
     "canSubmit": true,
@@ -14,27 +14,37 @@
     "formData": {
       "title": "Formulaire 2",
       "email": "",
-      "question": "La question 2:",
+      "question": "Selon vous, avoir les chiffres apparent est il important ?",
       "reponse": ""
     },
     "canSubmit": true,
     "visible": true
-  },
+  }, 
   {
     "videoUrl": "/public/videos/rec-avatrade.mp4",
     "formData": {
       "title": "Formulaire 3",
-      "question": "La question 3:",
+      "question": "Selon vous, avoir trop d'informations sur les outils de trading peut être détrimentaire ?",
       "reponse": ""
     },
     "canSubmit": true,
     "visible": true
   },
   {
-    "videoUrl": "/public/videos/rec-etoro.mp4",
+    "videoUrl": "/public/videos/Enregistrement-LIBERTEX.mov",
     "formData": {
       "title": "Formulaire 4",
-      "question": "La question 4:",
+      "question": "Selon vous, pouvoir mettre des favoris est-il important ?",
+      "reponse": ""
+    },
+    "canSubmit": true,
+    "visible": true
+  },
+  {
+    "videoUrl": "/public/videos/Meta-Trader.mp4",
+    "formData": {
+      "title": "Formulaire 5",
+      "question": "Selon vous, les performances d'un site sont elles plus importantes que sa personalisation ?",
       "reponse": ""
     },
     "canSubmit": true,

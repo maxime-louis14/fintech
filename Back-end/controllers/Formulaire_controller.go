@@ -17,7 +17,6 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"go.mongodb.org/mongo-driver/mongo"
 	"gopkg.in/mgo.v2/bson"
-	
 )
 
 var questionnaireCollection *mongo.Collection = database.GetFormulaireCollection(database.DB)
@@ -67,17 +66,11 @@ func PostFormulaire(c *fiber.Ctx) error {
 }
 
 func GetFormulaireCollection(c *fiber.Ctx) error {
-	// Créer un contexte avec un délai d'attente
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 
-	// Obtenir la collection
 	collection := questionnaireCollection
-
-	// Définir les filtres de recherche si nécessaire
-	filter := bson.M{} // Pour récupérer toutes les entrées, utilisez un filtre vide
-
-	// Exécuter la requête
+	filter := bson.M{}
 	cursor, err := collection.Find(ctx, filter)
 	if err != nil {
 		log.Println(err)
@@ -85,7 +78,6 @@ func GetFormulaireCollection(c *fiber.Ctx) error {
 	}
 	defer cursor.Close(ctx)
 
-	// Parcourir les résultats et les stocker dans un slice
 	var result []models.Questionnaire
 	for cursor.Next(ctx) {
 		var entry models.Questionnaire
@@ -96,32 +88,39 @@ func GetFormulaireCollection(c *fiber.Ctx) error {
 		result = append(result, entry)
 	}
 
-	// Vérifier les erreurs après le parcours du curseur
 	if err := cursor.Err(); err != nil {
 		log.Println(err)
 		return c.Status(http.StatusInternalServerError).SendString("Erreur lors de la récupération des données.")
 	}
 
-	// Sauvegarder les données dans un fichier JSON
-	if err := saveJSON(result); err != nil {
-		log.Println(err)
-		return c.Status(http.StatusInternalServerError).SendString("Erreur lors de la sauvegarde des données au format JSON.")
-	}
+	// Récupérer le format souhaité depuis le paramètre "format" dans l'URL
+	format := c.Query("format")
 
-	// Sauvegarder les données dans un fichier CSV
-	if err := saveCSV(result); err != nil {
-		log.Println(err)
-		return c.Status(http.StatusInternalServerError).SendString("Erreur lors de la sauvegarde des données au format CSV.")
-	}
+	switch format {
+	case "json":
+		if err := saveJSON(result); err != nil {
+			log.Println(err)
+			return c.Status(http.StatusInternalServerError).SendString("Erreur lors de la sauvegarde des données au format JSON.")
+		}
+		return c.Download("datafile/data.json")
 
-	// Sauvegarder les données dans un fichier SQLite
-	if err := saveSQLite(result); err != nil {
-		log.Println(err)
-		return c.Status(http.StatusInternalServerError).SendString("Erreur lors de la sauvegarde des données au format SQLite.")
-	}
+	case "csv":
+		if err := saveCSV(result); err != nil {
+			log.Println(err)
+			return c.Status(http.StatusInternalServerError).SendString("Erreur lors de la sauvegarde des données au format CSV.")
+		}
+		return c.Download("datafile/data.csv")
 
-	// Renvoyer les fichiers au client
-	return c.Download("./datafile/data.csv", "./datafile/data.json", "./datafile/data.sqlite")
+	case "sqlite":
+		if err := saveSQLite(result); err != nil {
+			log.Println(err)
+			return c.Status(http.StatusInternalServerError).SendString("Erreur lors de la sauvegarde des données au format SQLite.")
+		}
+		return c.Download("datafile/data.sqlite")
+
+	default:
+		return c.Status(http.StatusBadRequest).SendString("Format non pris en charge.")
+	}
 }
 
 func saveSQLite(data []models.Questionnaire) error {
