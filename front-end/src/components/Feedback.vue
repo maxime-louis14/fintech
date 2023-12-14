@@ -74,7 +74,7 @@ const submitForm = async () => {
   // Vérifier si l'utilisateur a déjà envoyé un feedback
   const hasSentFeedback = localStorage.getItem("feedbackSent");
 
-  if (hasSentFeedback) {
+  if (hasSentFeedback && hasSentFeedback === formData.value.email) {
     // Afficher une alerte SweetAlert2 indiquant que le feedback a déjà été envoyé
     Swal.fire({
       icon: "warning",
@@ -91,12 +91,12 @@ const submitForm = async () => {
       body: JSON.stringify(formData.value)
     });
 
+    // Indiquer que le feedback a été envoyé dans le stockage local
+    localStorage.setItem("feedbackSent", formData.value.email);
+
     if (response.ok) {
       // Réinitialisez le formulaire après l'envoi avec succès
       formData.value = { nom: "", email: "", reponse: "" };
-
-      // Indiquer que le feedback a été envoyé dans le stockage local
-      localStorage.setItem("feedbackSent", "true");
 
       // Afficher une alerte SweetAlert2 pour le succès
       Swal.fire({
@@ -145,7 +145,3 @@ const submitForm = async () => {
   }
 };
 </script>
-
-<style scoped>
-/* Ajoutez ici des styles spécifiques au composant si nécessaire */
-</style>

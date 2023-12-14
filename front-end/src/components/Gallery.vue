@@ -1,15 +1,26 @@
 <template>
   <div class="bg-slate-200">
+    <!-- Champ d'e-mail en dehors de la boucle v-for -->
     <div class="text-center mt-5 md:mt-16">
-      <!-- ... (autres parties du code) ... -->
+      <label for="email" class="block text-gray-700 font-semibold mb-2">
+        Adresse e-mail :
+      </label>
+      <input
+        v-model="commonEmail"
+        type="email"
+        id="email"
+        name="email"
+        class="p-2 border rounded mx-auto"
+      />
     </div>
-
     <div v-for="(item, index) in formList" :key="index" class="md:pt-5">
-      <div class="text-center md:mt-20">
+      <div class="text-center md:mt-24">
         <h1 class="font-semibold text-2xl md:text-5xl">
           {{ item.formData.title }}
         </h1>
-        <h3 class="text-2xl font-semibold md:mt-5">{{ item.formData.question }}</h3>
+        <h3 class="text-2xl font-semibold md:mt-5">
+          {{ item.formData.question }}
+        </h3>
       </div>
 
       <div
@@ -18,7 +29,7 @@
         data-aos="fade-right"
         data-aos-delay="300"
       >
-        <div class="md:w-full lg:w-3/5 mt-4 md:mt-10 md:ml-5">
+        <div class="md:w-full lg:w-3/5 mt-5 md:mt-5 md:ml-5">
           <!-- Utilisation des classes Tailwind pour définir la taille de la vidéo -->
           <div class="relative w-full h-0" style="padding-bottom: 56.25%">
             <video
@@ -32,7 +43,7 @@
           </div>
         </div>
 
-        <div class="md:w-full lg:w-2/5 mt-1 md:pt-16 md:pl-6">
+        <div class="md:w-full lg:w-2/5 mt-1 md:pt-48 md:pl-6">
           <form
             v-if="item.visible"
             id="form"
@@ -42,7 +53,7 @@
           >
             <label
               for="message"
-              class="block text-gray-700 mt-5 font-semibold mb-2 text-lg md:text-xl lg:text-2xl"
+              class="block text-gray-700 font-semibold mb-2 text-lg md:text-xl lg:text-2xl"
             >
               Donnez-nous votre avis :
             </label>
@@ -55,15 +66,16 @@
         </div>
       </div>
     </div>
-
     <!-- Bouton pour envoyer tous les formulaires -->
-    <div class="flex justify-center mt-8">
-      <button
-        @click="submitAllForms"
-        class="mt-4 bg-blue-500 text-white rounded-lg px-4 py-2 text-lg md:text-xl lg:text-2xl"
-      >
-        Envoyer tous les formulaires
-      </button>
+    <div>
+      <div class="flex justify-center mt-8">
+        <button
+          @click="submitAllForms"
+          class="mt-4 bg-blue-500 text-white rounded-lg px-4 py-2 text-lg md:text-xl lg:text-2xl"
+        >
+          Envoyer tous les formulaires
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -78,32 +90,6 @@ import { ref } from "vue";
 import formList from "@/data/formList.json";
 
 AOS.init();
-
-// const imageFormList = ref([
-//   {
-//     description: "Description du formulaire 1.",
-//     videoUrl: "/public/videos/test.mp4",
-//     formData: {
-//       title: "Formulaire 1",
-//       question: "La question :",
-//       reponse: ""
-//     },
-//     canSubmit: true,
-//     visible: true
-//   },
-//   {
-//     description: "Description du formulaire 2.",
-//     videoUrl: "/public/videos/Enregistrement-LIBERTEX.mov",
-//     formData: {
-//       title: "Formulaire 2",
-//       question: "La question dfdfdf :",
-//       reponse: ""
-//     },
-//     canSubmit: true,
-//     visible: true
-//   }
-//   // ... (autres éléments avec visible: true)
-// ]);
 
 const commonEmail = ref(""); // Champ d'e-mail unique
 
@@ -122,7 +108,7 @@ const submitAllForms = async (index) => {
       return;
     }
 
-    const responses = imageFormList.value.map((item) => ({
+    const responses = formList.map((item) => ({
       title: item.formData.title,
       reponse: item.formData.reponse,
       question: item.formData.question,
@@ -151,7 +137,7 @@ const submitAllForms = async (index) => {
     }
 
     // Désactiver tous les formulaires après l'envoi
-    imageFormList.value.forEach((item, i) => {
+    formList.forEach((item, i) => {
       item.canSubmit = commonEmail;
       item.visible = i === index ? false : item.visible; // Masquer le formulaire actuel
     });
@@ -171,7 +157,7 @@ const submitAllForms = async (index) => {
     if (error.message.includes("déjà répondu")) {
       // Afficher une alerte pour informer que l'utilisateur ne peut pas répondre une deuxième fois
       Swal.fire({
-        icon: "error",
+        icon: "warning",
         title: "Impossible de répondre",
         text: "Vous avez déjà répondu à ce sondage. Vous ne pouvez pas répondre une deuxième fois."
       });

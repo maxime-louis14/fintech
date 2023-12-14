@@ -3,18 +3,21 @@ package controllers
 import (
 	"context"
 	"encoding/csv"
+	"encoding/json"
 	"encoding/xml"
 	"fintech/database"
 	"fintech/models"
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"time"
 
 	"github.com/go-playground/validator/v10"
 	"github.com/gofiber/fiber/v2"
 	"go.mongodb.org/mongo-driver/mongo"
 	"gopkg.in/mgo.v2/bson"
+	
 )
 
 var questionnaireCollection *mongo.Collection = database.GetFormulaireCollection(database.DB)
@@ -99,8 +102,97 @@ func GetFormulaireCollection(c *fiber.Ctx) error {
 		return c.Status(http.StatusInternalServerError).SendString("Erreur lors de la récupération des données.")
 	}
 
-	// Renvoyer les données au client (vous pouvez utiliser un format JSON ou tout autre format approprié)
-	return respondWithFormat(c, result)
+	// Sauvegarder les données dans un fichier JSON
+	if err := saveJSON(result); err != nil {
+		log.Println(err)
+		return c.Status(http.StatusInternalServerError).SendString("Erreur lors de la sauvegarde des données au format JSON.")
+	}
+
+	// Sauvegarder les données dans un fichier CSV
+	if err := saveCSV(result); err != nil {
+		log.Println(err)
+		return c.Status(http.StatusInternalServerError).SendString("Erreur lors de la sauvegarde des données au format CSV.")
+	}
+
+	// Sauvegarder les données dans un fichier SQLite
+	if err := saveSQLite(result); err != nil {
+		log.Println(err)
+		return c.Status(http.StatusInternalServerError).SendString("Erreur lors de la sauvegarde des données au format SQLite.")
+	}
+
+	// Renvoyer les fichiers au client
+	return c.Download("./datafile/data.csv", "./datafile/data.json", "./datafile/data.sqlite")
+}
+
+func saveSQLite(data []models.Questionnaire) error {
+	err := os.Mkdir("datafile/", os.ModePerm)
+	if err != nil && !os.IsExist(err) {
+		return err
+	}
+
+	file, err := os.Create("datafile/data.sqlite")
+	if err != nil {
+		return err
+	}
+	defer file.Close()
+
+	encoder := json.NewEncoder(file)
+	return encoder.Encode(data)
+
+}
+
+func saveJSON(data interface{}) error {
+	err := os.Mkdir("datafile/", os.ModePerm)
+	if err != nil && !os.IsExist(err) {
+		return err
+	}
+
+	file, err := os.Create("datafile/data.json")
+	if err != nil {
+		return err
+	}
+	defer file.Close()
+
+	encoder := json.NewEncoder(file)
+	return encoder.Encode(data)
+}
+
+func saveCSV(data []models.Questionnaire) error {
+	err := os.Mkdir("datafile/", os.ModePerm)
+	if err != nil && !os.IsExist(err) {
+		return err
+	}
+
+	file, err := os.Create("datafile/data.csv")
+	if err != nil {
+		return err
+	}
+	defer file.Close()
+
+	writer := csv.NewWriter(file)
+	defer writer.Flush()
+
+	// Écrivez l'en-tête CSV
+	header := []string{"title", "email", "reponse", "question", "createdAt"}
+	if err := writer.Write(header); err != nil {
+		return err
+	}
+
+	// Écrivez les données CSV
+	for _, entry := range data {
+		record := []string{
+			entry.Title,
+			entry.Email,
+			entry.Reponse,
+			entry.Question,
+			entry.CreatedAt.String(), // Convertir la date en chaîne
+		}
+		if err := writer.Write(record); err != nil {
+			return err
+		}
+	}
+
+	return nil
 }
 
 // respondWithFormat renvoie les données au client dans le format demandé

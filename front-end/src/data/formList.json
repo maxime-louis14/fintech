@@ -1,23 +1,43 @@
 [
-    {
-      "videoUrl": "/public/videos/test.mp4",
-      "formData": {
-        "title": "Formulaire 1",
-        "question": "La question 1:",
-        "reponse": ""
-      },
-      "canSubmit": true,
-      "visible": true
+  {
+    "videoUrl": "/public/videos/test.mp4",
+    "formData": {
+      "title": "Formulaire 1",
+      "question": "La question 1 : pouvoir modifier le graphique est-il important pour vous ?",
+      "reponse": ""
     },
-    {
-      "videoUrl": "/public/videos/Enregistrement-LIBERTEX.mov",
-      "formData": {
-        "title": "Formulaire 2",
-        "question": "La question 2:",
-        "reponse": ""
-      },
-      "canSubmit": true,
-      "visible": true
-    }
-  ]
-  
+    "canSubmit": true,
+    "visible": true
+  },
+  {
+    "videoUrl": "/public/videos/ig-rec.mp4",
+    "formData": {
+      "title": "Formulaire 2",
+      "email": "",
+      "question": "La question 2:",
+      "reponse": ""
+    },
+    "canSubmit": true,
+    "visible": true
+  },
+  {
+    "videoUrl": "/public/videos/rec-avatrade.mp4",
+    "formData": {
+      "title": "Formulaire 3",
+      "question": "La question 3:",
+      "reponse": ""
+    },
+    "canSubmit": true,
+    "visible": true
+  },
+  {
+    "videoUrl": "/public/videos/rec-etoro.mp4",
+    "formData": {
+      "title": "Formulaire 4",
+      "question": "La question 4:",
+      "reponse": ""
+    },
+    "canSubmit": true,
+    "visible": true
+  }
+]
