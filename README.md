@@ -1,6 +1,4 @@
-Bien sûr, voici un exemple de fichier README.md pour un projet utilisant Go (Golang) et Vue.js. Assurez-vous d'ajuster les détails en fonction de la structure de votre projet et des besoins spécifiques.
 
-```markdown
 # Mon Projet Go + Vue.js
 
 ## Description
