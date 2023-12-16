@@ -21,5 +21,4 @@ import Home from "../components/Home.vue";
 import Gallery from "../components/Gallery.vue";
 import Feedback from "../components/Feedback.vue";
 import FooterVue from "../components/Footer.vue";
-import SquareGrid from "../components/SquareGrid.vue";
 </script>

@@ -7,7 +7,7 @@
     >
       <h1 class="text-2xl font-normal mb-6 inline-block rounded-lg">
         Selon vous, quelle est votre UI préférée entre toutes celles présentées
-        avant. De plus, donnez-nous des fonctionnalités que vous aimeriez voir
+        précédement ? De plus, donnez-nous des fonctionnalités que vous aimeriez voir
         apparaitre sur l'interface que vous utilisez actuellement
       </h1>
       <form @submit.prevent="submitForm" class="text-left">

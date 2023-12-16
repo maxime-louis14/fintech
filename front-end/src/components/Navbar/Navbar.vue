@@ -2,7 +2,7 @@
   <div>
     <div id="navbar-placeholder"></div>
     <div id="navbar">
-      <nav class="bg-gray-900 text-white p-4">
+      <nav class="bg-indigo-950 text-white p-4">
         <div class="container mx-auto flex justify-between items-center">
           <div class="text-2xl font-bold">
             <RouterLink

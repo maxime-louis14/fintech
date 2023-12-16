@@ -2,7 +2,7 @@
   <div class="bg-slate-200">
     <!-- Champ d'e-mail en dehors de la boucle v-for -->
     <div class="text-center mt-5 md:mt-16">
-      <label for="email" class="block text-gray-700 font-semibold mb-2">
+      <label for="email" class="block text-gray-700 font-custom mb-2">
         Adresse e-mail :
       </label>
       <input
@@ -15,10 +15,10 @@
     </div>
     <div v-for="(item, index) in formList" :key="index" class="md:pt-5">
       <div class="text-center md:mt-24">
-        <h1 class="font-semibold text-2xl md:text-5xl">
+        <h1 class="font-custom text-2xl md:text-5xl">
           {{ item.formData.title }}
         </h1>
-        <h3 class="text-2xl font-semibold md:mt-5">
+        <h3 class="text-2xl font-custom md:mt-5">
           {{ item.formData.question }}
         </h3>
       </div>
@@ -30,9 +30,10 @@
         data-aos-delay="450"
       >
         <div class="md:w-full lg:w-3/5 mt-5 md:mt-5 md:ml-5">
-          <!-- Utilisation des classes Tailwind pour définir la taille de la vidéo -->
           <div class="relative w-full h-0" style="padding-bottom: 50%">
+            <!-- Utilisation du rendu conditionnel pour vidéo ou image -->
             <video
+              v-if="isVideo(item.videoUrl)"
               controls
               class="absolute inset-0 w-full h-full"
               :src="item.videoUrl"
@@ -41,6 +42,10 @@
               Votre navigateur ne prend pas en charge la balise vidéo.
             </video>
             <img
+              v-else
+              class="absolute inset-0 w-full h-full object-cover"
+              :src="item.videoUrl"
+              alt="Image"
             />
           </div>
         </div>
@@ -55,7 +60,7 @@
           >
             <label
               for="message"
-              class="block text-gray-700 font-semibold mb-2 text-lg md:text-xl lg:text-2xl"
+              class="block text-gray-700 font-custom mb-2 text-lg md:text-xl lg:text-2xl"
             >
               Donnez-nous votre avis :
             </label>
@@ -73,7 +78,7 @@
       <div class="flex justify-center mt-8">
         <button
           @click="submitAllForms"
-          class="mt-4 bg-blue-500 text-white rounded-lg px-4 py-2 text-lg md:text-xl lg:text-2xl"
+          class="mt-4 bg-blue-500 text-white font-custom rounded-lg px-4 py-2 text-lg md:text-xl lg:text-2xl"
         >
           Envoyer tous les formulaires
         </button>
@@ -94,6 +99,12 @@ import formList from "@/data/formList.json";
 AOS.init();
 
 const commonEmail = ref(""); // Champ d'e-mail unique
+
+const isVideo = (url) => {
+  // Fonction pour vérifier si l'URL est une vidéo basée sur l'extension
+  const lowerCaseUrl = url.toLowerCase();
+  return lowerCaseUrl.endsWith(".mp4") || lowerCaseUrl.endsWith(".mov");
+};
 
 const submitAllForms = async (index) => {
   try {

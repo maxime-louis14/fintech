@@ -41,13 +41,13 @@
     "visible": true
   },
   {
-    "videoUrl": "/public/videos/Meta-Trader.mp4",
+    "videoUrl": "/public/images/FXCM.png",
     "formData": {
       "title": "Formulaire 5",
-      "question": "Selon vous, les performances d'un site sont elles plus importantes que sa personalisation ?",
+      "question": "Selon vous, les performances d'un site sont elles plus importantes que sa personalisation / son ergonomie ?",
       "reponse": ""
     },
     "canSubmit": true,
     "visible": true
   }
-]
+] 

@@ -7,9 +7,8 @@
         alt="Logo IDK Solutions"
         class="w-full h-full mt-40"
       />
-      <p class="font-medium text-xl mt-24">
-        Bienvenue à ce formulaire dans lequel vous pouvez juger et donner votre
-        avis sur des éléments UI/UX.
+      <p class="font-custom text-xl mt-24">
+        Bienvenue dans le formulaire dans lequel vous pouvez juger et donner votre avis sur des éléments UI/UX.
       </p>
       <div class="mt-8">
         <img
