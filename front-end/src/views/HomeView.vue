@@ -6,9 +6,6 @@
     <Gallery />
   </section>
   <section>
-    <SquareGrid />
-  </section>
-  <section>
     <Feedback />
   </section>
   <footer>

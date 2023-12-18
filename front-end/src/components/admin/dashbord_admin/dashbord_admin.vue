@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from "vue";
-import statistiques from "@/components/admin/UpdateFile/UpdateFile.vue";
+import statistiques from "@/components/admin/DownloadButtons/DownloadButtons.vue";
 import test from "@/components/test/test.vue";
 
 const step = ref("statistiques");

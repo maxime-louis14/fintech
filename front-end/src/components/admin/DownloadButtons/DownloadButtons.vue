@@ -13,6 +13,12 @@
       >
         Télécharger CSV
       </button>
+      <button
+        @click="downloadSQL"
+        class="bg-red-600 text-white py-2 px-4 rounded-md mr-2"
+      >
+        Télécharger CSV
+      </button>
     </div>
   </div>
 </template>
@@ -25,9 +31,7 @@ const apiData = ref(null);
 
 const fetchData = async (format) => {
   try {
-    const response = await fetch(
-      "http://localhost:3001/api/data?format=json"
-    );
+    const response = await fetch("http://localhost:3001/api/data?format=json");
     const data = await response.json();
     apiData.value = data;
   } catch (error) {
