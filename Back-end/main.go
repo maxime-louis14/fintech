@@ -16,5 +16,5 @@ func main() {
 	//routes
 	routes.QuestionRoute(app) //add this
 
-	app.Listen(":3001")
+	app.Listen(":8080")
 }

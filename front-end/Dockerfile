@@ -1,0 +1,23 @@
+# Étape 1 : Utilisez une image Node.js pour construire l'application Vue.js
+FROM node:18 as front-end
+
+# Définissez le répertoire de travail dans le conteneur
+WORKDIR /app/front-end
+
+# Copiez package.json et package-lock.json dans le conteneur
+COPY package*.json ./
+
+# Installez les dépendances du projet
+RUN npm ci
+
+# Copiez tous les fichiers du projet dans le conteneur
+COPY . .
+
+# Installez Vite localement dans le projet
+RUN npm install vite
+
+# Compilez l'application Vue.js pour la production
+CMD ["npm", "run", "dev"]
+
+# Exposez le port 3000 pour accéder à l'application via le navigateur
+EXPOSE 3000

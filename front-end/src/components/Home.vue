@@ -1,3 +1,13 @@
+<script setup>
+import { ref, onMounted } from "vue";
+
+const el = ref();
+
+onMounted(() => {
+  el.value;
+});
+</script>
+
 <template>
   <div class="flex flex-row items-center justify-center text-center">
     <div class="flex flex-col items-center justify-center w-2/5 mr-8">
@@ -8,7 +18,8 @@
         class="w-full h-full mt-40"
       />
       <p class="font-custom text-xl mt-24">
-        Bienvenue dans le formulaire dans lequel vous pouvez juger et donner votre avis sur des éléments UI/UX.
+        Bienvenue dans le formulaire dans lequel vous pouvez juger et donner
+        votre avis sur des éléments UI/UX.
       </p>
       <div class="mt-8">
         <img
@@ -19,4 +30,6 @@
       </div>
     </div>
   </div>
+
+  <div ref="el">ici</div>
 </template>

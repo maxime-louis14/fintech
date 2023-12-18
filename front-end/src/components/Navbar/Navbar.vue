@@ -12,12 +12,14 @@
             >
               Accueil
             </RouterLink>
+            
           </div>
 
           <div class="flex space-x-4">
             <a href="#Contact" class="hover:bg-gray-600 px-4 py-2 rounded">
               Contact
             </a>
+            
           </div>
         </div>
       </nav>

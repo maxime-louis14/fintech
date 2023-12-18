@@ -3,9 +3,7 @@ import Navbar from "./components/Navbar/Navbar.vue";
 </script>
 
 <template>
-  <div class="bg-slate-200">
-    
-      <Navbar />
-
+  <div class="">
+    <Navbar />
   </div>
 </template>

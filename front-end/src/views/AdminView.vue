@@ -1,14 +1,9 @@
 <template>
   <section>
-    <UpdateFile />
-  </section>
-  <section>
-    <Questionnaire />
+    <dashboard />
   </section>
 </template>
 
 <script setup>
-import Question from "@/components/Formulaire/Question.vue";
-import Questionnaire from "@/components/Formulaire/Questionnaire.vue";
-import UpdateFile from "@/components/UpdateFile/UpdateFile.vue";
+import dashboard from "@/components/admin/dashbord_admin/dashbord_admin.vue";
 </script>
